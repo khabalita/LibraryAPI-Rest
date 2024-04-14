@@ -10,4 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "api/editorials")
 public class EditorialController extends BaseControllerImpl<Editorial, EditorialServiceImpl>{
+
 }

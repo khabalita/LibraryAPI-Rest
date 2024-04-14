@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
-
 //Clase Abstracta que tiene como parametros E de Base y S que extiende de BaseService
 //A su vez BaseService tiene como parametro E y el tipo de dato Long
 //Ademas implementa BaseController con los parametros E y Long
@@ -25,7 +23,7 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         }
     }
     @GetMapping("/{id}")
-    public ResponseEntity <?> getOne(@PathVariable Long id){
+    public ResponseEntity<?> getOne(@PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(servicio.findById(id));
         }catch(Exception e){

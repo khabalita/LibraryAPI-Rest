@@ -1,20 +1,12 @@
 package com.khabalita.springboot.finalseminario.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "authors")
@@ -23,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 @EqualsAndHashCode
 public class Author extends Base{
 
@@ -34,6 +27,11 @@ public class Author extends Base{
     private String nationality;
     @JsonFormat(pattern = "yyyy-MM-dd") //formato para utilizar json
     @Column(name = "Birthdate")
-    private Date birthdate;
+    private LocalDate birthdate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "Deathdate")
+    private LocalDate deathdate;
+    @Column(name = "Biography")
+    private String biography;
 
 }

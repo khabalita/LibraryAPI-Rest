@@ -2,7 +2,9 @@ package com.khabalita.springboot.finalseminario.controller;
 
 import com.khabalita.springboot.finalseminario.entities.Author;
 import com.khabalita.springboot.finalseminario.services.AuthorServiceImpl;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*")
