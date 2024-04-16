@@ -39,4 +39,15 @@ public class AuthorMapper{
         authorsResponse.setAuthors(authorResponseList);
         return authorsResponse;
     }
+
+    public AuthorResponse authorToAuthorResponse(Author author) {
+        AuthorResponse authorResponse = new AuthorResponse();
+        authorResponse.setName(author.getName());
+        authorResponse.setLastName(author.getLastName());
+        authorResponse.setNationality(author.getNationality());
+        authorResponse.setBirthdate(author.getBirthdate());
+        authorResponse.setDeathdate(author.getDeathdate());
+        authorResponse.setBiography(author.getBiography());
+        return authorResponse;
+    }
 }

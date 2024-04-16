@@ -1,7 +1,10 @@
 package com.khabalita.springboot.finalseminario.dto.request;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class BookRequest {
     private String IDBN;
     private String title;

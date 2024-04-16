@@ -1,5 +1,8 @@
 package com.khabalita.springboot.finalseminario.dto.response;
 
+import lombok.Data;
+
+@Data
 public class BookResponse {
     private String ISBN;
     private String title;

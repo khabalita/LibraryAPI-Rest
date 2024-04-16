@@ -1,5 +1,8 @@
 package com.khabalita.springboot.finalseminario.dto.request;
 
+import lombok.Data;
+
+@Data
 public class EditorialRequest {
     private String name;
 }

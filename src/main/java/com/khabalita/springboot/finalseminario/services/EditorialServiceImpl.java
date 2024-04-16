@@ -1,6 +1,7 @@
 package com.khabalita.springboot.finalseminario.services;
 
 import com.khabalita.springboot.finalseminario.entities.Editorial;
+import com.khabalita.springboot.finalseminario.mapper.EditorialMapper;
 import com.khabalita.springboot.finalseminario.repository.BaseRepository;
 import com.khabalita.springboot.finalseminario.repository.EditorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import java.util.List;
 public class EditorialServiceImpl extends BaseServiceImpl<Editorial, Long> implements EditorialService{
     @Autowired
     private EditorialRepository editorialRepository;
+
+    @Autowired
+    private EditorialMapper editorialMapper;
 
     //Constructor que trae por parametros la E(editorial) y el ID(long)
     public EditorialServiceImpl(BaseRepository<Editorial, Long> baseRepository){

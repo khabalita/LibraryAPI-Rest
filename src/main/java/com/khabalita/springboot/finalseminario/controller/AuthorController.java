@@ -2,6 +2,7 @@ package com.khabalita.springboot.finalseminario.controller;
 
 import com.khabalita.springboot.finalseminario.dto.request.AuthorRequest;
 import com.khabalita.springboot.finalseminario.dto.response.AuthorResponse;
+import com.khabalita.springboot.finalseminario.dto.response.AuthorsResponse;
 import com.khabalita.springboot.finalseminario.entities.Author;
 import com.khabalita.springboot.finalseminario.mapper.AuthorMapper;
 import com.khabalita.springboot.finalseminario.services.AuthorServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -38,6 +40,22 @@ public class AuthorController extends BaseControllerImpl<Author, AuthorServiceIm
         }
     }
 
+    @GetMapping("/getOne/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getAuthor(@PathVariable Long id){
+        try{
+            Author author= servicio.findById(id);
+            if(author != null ){
+                AuthorResponse authorResponse = authorMapper.authorToAuthorResponse(author);
+                return ResponseEntity.status(HttpStatus.OK).body(authorResponse);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Author not found}");
+            }
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"Error to get one author}");
+        }
+    }
+
     @GetMapping("/listAuthors")
     @ResponseBody
     public ResponseEntity<?> getAllAuthors(){
@@ -48,5 +66,34 @@ public class AuthorController extends BaseControllerImpl<Author, AuthorServiceIm
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"Error to get authors}");
         }
 
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorRequest authorRequest){
+        try{
+            Author authorRequestToUpdate = authorMapper.authorRequestToAuthor(authorRequest);
+            Author updatedAuthor = servicio.update(id, authorRequestToUpdate);
+            if(updatedAuthor != null){
+                return ResponseEntity.status(HttpStatus.OK).body(updatedAuthor);
+            }else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Author not found}");
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"Error to update author}");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteAuthor(@PathVariable Long id){
+        try{
+            boolean deleted = servicio.delete(id);
+            if(deleted){
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Author not found}");
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"Error\":\"Error to delete author}");
+        }
     }
 }
