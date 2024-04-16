@@ -6,6 +6,8 @@ import com.khabalita.springboot.finalseminario.repository.EditorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EditorialServiceImpl extends BaseServiceImpl<Editorial, Long> implements EditorialService{
     @Autowired
@@ -16,4 +18,5 @@ public class EditorialServiceImpl extends BaseServiceImpl<Editorial, Long> imple
         //hereda los metodos de Base Service Implements
         super(baseRepository);
     }
+
 }

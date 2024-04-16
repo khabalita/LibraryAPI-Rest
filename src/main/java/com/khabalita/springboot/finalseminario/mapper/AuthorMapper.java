@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AuthorMapper {
-    //metodo que trae los datos desde el lado del cliente y los guarda en el modelo
-    public Author authorRequestToAuthor(AuthorRequest authorRequest ){
+public class AuthorMapper{
+
+    public Author authorRequestToAuthor(AuthorRequest authorRequest){
         Author author = new Author();
         author.setName(authorRequest.getName());
         author.setLastName(authorRequest.getLastName());
@@ -22,14 +22,11 @@ public class AuthorMapper {
         author.setBiography(authorRequest.getBiography());
         return author;
     }
-    /*Este método recibe una lista de Author y devuelve una lista de AuthorResponse.
-    Recorre la lista original y crea un nuevo AuthorDTO para cada Author
-    asignando los valores correspondientes.*/
-    public List<AuthorResponse> authorListToResponse(List<Author> authors){
-        List<AuthorResponse> authorResponseList = new ArrayList<>(); //creo una lista vacia
 
-        for(Author author : authors){
-        AuthorResponse authorResponse = new AuthorResponse();
+    public AuthorsResponse authorToAuthorResponseList(List<Author> authors){
+        List<AuthorResponse> authorResponseList = new ArrayList<>();
+        for(Author author: authors){
+            AuthorResponse authorResponse = new AuthorResponse();
             authorResponse.setName(author.getName());
             authorResponse.setLastName(author.getLastName());
             authorResponse.setNationality(author.getNationality());
@@ -40,6 +37,6 @@ public class AuthorMapper {
         }
         AuthorsResponse authorsResponse = new AuthorsResponse();
         authorsResponse.setAuthors(authorResponseList);
-        return authorResponseList;
+        return authorsResponse;
     }
 }

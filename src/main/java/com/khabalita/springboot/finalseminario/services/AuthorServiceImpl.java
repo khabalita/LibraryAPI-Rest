@@ -1,10 +1,16 @@
 package com.khabalita.springboot.finalseminario.services;
 
+import com.khabalita.springboot.finalseminario.dto.response.AuthorResponse;
+import com.khabalita.springboot.finalseminario.dto.response.AuthorsResponse;
 import com.khabalita.springboot.finalseminario.entities.Author;
+import com.khabalita.springboot.finalseminario.mapper.AuthorMapper;
 import com.khabalita.springboot.finalseminario.repository.AuthorRepository;
 import com.khabalita.springboot.finalseminario.repository.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //Clase de implementacion que extiende de la clase BaseService implememntada, con los parametros del Autor
 //a su vez implementa el AutorService
@@ -14,7 +20,12 @@ public class AuthorServiceImpl extends BaseServiceImpl<Author, Long> implements 
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private AuthorMapper authorMapper;
+
     public AuthorServiceImpl(BaseRepository<Author, Long> baseRepository){
         super(baseRepository);
     }
+
+
 }
