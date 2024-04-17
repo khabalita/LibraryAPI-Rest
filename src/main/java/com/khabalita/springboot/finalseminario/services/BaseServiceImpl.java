@@ -2,9 +2,11 @@ package com.khabalita.springboot.finalseminario.services;
 
 import com.khabalita.springboot.finalseminario.entities.Base;
 import com.khabalita.springboot.finalseminario.repository.BaseRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +53,42 @@ public abstract class BaseServiceImpl <E extends Base, ID extends Serializable> 
 
     @Override
     @Transactional
-    public E update(ID id, E entity) throws Exception {
+    public E update(ID id, E uptdateEntity) throws Exception{
+        try{
+            Optional<E> entityOptional = baseRepository.findById(id);
+            if(entityOptional.isPresent()){
+                E entityToUpdate = entityOptional.get();
+                Class<?> entityClass = entityToUpdate.getClass();
+                Field[] fields = entityClass.getDeclaredFields();
+                for(Field field : fields){
+                    field.setAccessible(true);
+                    String fieldName = field.getName();
+                    Field updateField;
+                    try{
+                        updateField = uptdateEntity.getClass().getDeclaredField(fieldName);
+                        updateField.setAccessible(true);
+                    }catch (NoSuchFieldException e){
+                        continue;
+                    }
+                    Object updateValue = updateField.get(uptdateEntity);
+                    if(updateValue != null){
+                        field.set(entityToUpdate, updateValue);
+                    }
+                }
+                entityToUpdate = baseRepository.save(entityToUpdate);
+                return entityToUpdate;
+            } else{
+                throw new EntityNotFoundException("entity not found" + id);
+            }
+        } catch (Exception e){
+            throw new Exception("Error to update entity" + e.getMessage());
+        }
+    }
+
+    //Metodo inutilizado
+    //@Override
+    //@Transactional
+    /*public E update(ID id, E entity) throws Exception {
         try{
             Optional<E> entityOptional = baseRepository.findById(id);
             E entityUpdate= entityOptional.get();
@@ -60,7 +97,7 @@ public abstract class BaseServiceImpl <E extends Base, ID extends Serializable> 
         }catch(Exception e){
             throw new Exception(e.getMessage());
         }
-    }
+    }*/
 
     @Override
     @Transactional
@@ -76,4 +113,6 @@ public abstract class BaseServiceImpl <E extends Base, ID extends Serializable> 
             throw new Exception(e.getMessage());
         }
     }
+
+
 }

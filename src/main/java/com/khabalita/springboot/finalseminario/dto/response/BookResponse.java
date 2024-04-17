@@ -9,5 +9,6 @@ public class BookResponse {
     private String subTitle;
     private Long Edition;
     private AuthorResponse authorResponse;
+    private EditorialResponse editorialResponse;
     private CategoryResponse categoryResponse;
 }

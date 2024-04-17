@@ -28,11 +28,11 @@ public class Book extends Base{
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne  //muchos libros tiene un editorial
+    @ManyToOne  //muchos libros tienen un editorial
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
-    @ManyToMany   //muchos libro pueden pertenecer a una o varias categorias
+    @ManyToMany   //muchos libros pueden pertenecer a una o mas categorias
     @JoinTable(
             name = "book_category",
             joinColumns = @JoinColumn(name = "book_id"),
