@@ -18,6 +18,7 @@ public abstract class BaseServiceImpl <E extends Base, ID extends Serializable> 
     public BaseServiceImpl(BaseRepository<E,ID> baseRepository){
         this.baseRepository = baseRepository;
     }
+
     @Override
     @Transactional
     public List<E> findAll() throws Exception {
@@ -36,7 +37,7 @@ public abstract class BaseServiceImpl <E extends Base, ID extends Serializable> 
             Optional<E> entityOptional = baseRepository.findById(id);
             return entityOptional.get();
         }catch(Exception e){
-            throw new Exception(e.getMessage());
+            throw new Exception("" + e.getMessage());
         }
     }
 
@@ -107,10 +108,10 @@ public abstract class BaseServiceImpl <E extends Base, ID extends Serializable> 
                 baseRepository.deleteById(id);
                 return true;
             } else {
-                throw new Exception();
+                throw new Exception("Id not found" + id);
             }
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Error to delele id" + e.getMessage());
         }
     }
 

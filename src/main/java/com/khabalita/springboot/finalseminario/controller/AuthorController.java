@@ -1,20 +1,15 @@
 package com.khabalita.springboot.finalseminario.controller;
 
-import com.khabalita.springboot.finalseminario.dto.request.AuthorRequest;
-import com.khabalita.springboot.finalseminario.dto.response.AuthorResponse;
-import com.khabalita.springboot.finalseminario.dto.response.AuthorsResponse;
+import com.khabalita.springboot.finalseminario.dto.AuthorDto;
 import com.khabalita.springboot.finalseminario.entities.Author;
 import com.khabalita.springboot.finalseminario.mapper.AuthorMapper;
 import com.khabalita.springboot.finalseminario.services.AuthorServiceImpl;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -30,9 +25,9 @@ public class AuthorController extends BaseControllerImpl<Author, AuthorServiceIm
     private AuthorMapper authorMapper;
 
     @PostMapping("/createAuthor")
-    public ResponseEntity<?> createAuthor(@RequestBody AuthorRequest authorRequest) {
+    public ResponseEntity<?> createAuthor(@RequestBody AuthorDto authorDto) {
         try {
-            Author author = authorMapper.authorRequestToAuthor(authorRequest);
+            Author author = authorMapper.authorDtoToAuthor(authorDto);
             Author savedAuthor = authorService.save(author);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedAuthor);
         } catch (Exception e) {
@@ -46,8 +41,8 @@ public class AuthorController extends BaseControllerImpl<Author, AuthorServiceIm
         try{
             Author author= servicio.findById(id);
             if(author != null ){
-                AuthorResponse authorResponse = authorMapper.authorToAuthorResponse(author);
-                return ResponseEntity.status(HttpStatus.OK).body(authorResponse);
+                AuthorDto authorDto = authorMapper.authorToAuthorDto(author);
+                return ResponseEntity.status(HttpStatus.OK).body(authorDto);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"Error\":\"Author not found}");
             }
@@ -69,9 +64,9 @@ public class AuthorController extends BaseControllerImpl<Author, AuthorServiceIm
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorRequest authorRequest){
+    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorDto authorDto){
         try{
-            Author authorRequestToUpdate = authorMapper.authorRequestToAuthor(authorRequest);
+            Author authorRequestToUpdate = authorMapper.authorDtoToAuthor(authorDto);
             Author updatedAuthor = servicio.update(id, authorRequestToUpdate);
             if(updatedAuthor != null){
                 return ResponseEntity.status(HttpStatus.OK).body(updatedAuthor);

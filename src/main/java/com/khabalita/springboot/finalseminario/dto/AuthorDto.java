@@ -1,11 +1,11 @@
-package com.khabalita.springboot.finalseminario.dto.request;
+package com.khabalita.springboot.finalseminario.dto;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class AuthorRequest {
+public class AuthorDto {
     private String name;
     private String lastName;
     private String nationality;
