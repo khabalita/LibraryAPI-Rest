@@ -13,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Builder
 public class Editorial extends Base{
 
     @Column(name = "Name")
