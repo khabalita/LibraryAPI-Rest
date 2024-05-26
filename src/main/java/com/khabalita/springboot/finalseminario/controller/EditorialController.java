@@ -2,6 +2,7 @@ package com.khabalita.springboot.finalseminario.controller;
 
 import com.khabalita.springboot.finalseminario.dto.EditorialDto;
 import com.khabalita.springboot.finalseminario.services.EditorialService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class EditorialController{
     private EditorialService editorialService;
 
     @PostMapping("/createEditorial")
-    public ResponseEntity<?> createEditorial(@RequestBody EditorialDto editorialDto) throws Exception{
+    public ResponseEntity<?> createEditorial(@RequestBody @Valid EditorialDto editorialDto) throws Exception{
         editorialService.newEditorial(editorialDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -41,7 +42,7 @@ public class EditorialController{
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEditorial(@PathVariable Long id, @RequestBody EditorialDto editorialDto) throws Exception{
+    public ResponseEntity<?> updateEditorial(@PathVariable Long id, @RequestBody @Valid EditorialDto editorialDto) throws Exception{
         EditorialDto updatedEditorial = editorialService.updateEditorial(id, editorialDto);
         if(updatedEditorial != null){
             return ResponseEntity.status(HttpStatus.OK).body(updatedEditorial);

@@ -2,6 +2,7 @@ package com.khabalita.springboot.finalseminario.controller;
 
 import com.khabalita.springboot.finalseminario.dto.BookDto;
 import com.khabalita.springboot.finalseminario.services.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class BookController{
     private BookService bookService;
 
     @PostMapping("/createBook")
-    public ResponseEntity<?> createBook(@RequestBody BookDto bookDto) throws Exception{
+    public ResponseEntity<?> createBook(@RequestBody @Valid BookDto bookDto) throws Exception{
         bookService.newBook(bookDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -42,7 +43,7 @@ public class BookController{
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateBook(@PathVariable Long id, @RequestBody BookDto bookDto) throws Exception{
+    public ResponseEntity<?> updateBook(@PathVariable Long id, @RequestBody @Valid BookDto bookDto) throws Exception{
         BookDto updatedBook = bookService.updateBook(id, bookDto);
         if(updatedBook != null){
             return ResponseEntity.status(HttpStatus.OK).body(updatedBook);

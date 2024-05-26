@@ -2,6 +2,7 @@ package com.khabalita.springboot.finalseminario.controller;
 
 import com.khabalita.springboot.finalseminario.dto.AuthorDto;
 import com.khabalita.springboot.finalseminario.services.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class AuthorController{
     private AuthorService authorService;
 
     @PostMapping("/createAuthor")
-    public ResponseEntity<?> createAuthor(@RequestBody AuthorDto authorDto) throws Exception{
+    public ResponseEntity<?> createAuthor(@RequestBody @Valid AuthorDto authorDto) throws Exception{
         authorService.newAuthor(authorDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -42,7 +43,7 @@ public class AuthorController{
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody AuthorDto authorDto) throws Exception{
+    public ResponseEntity<?> updateAuthor(@PathVariable Long id, @RequestBody @Valid AuthorDto authorDto) throws Exception{
             AuthorDto updatedAuthor = authorService.updateAuthor(id, authorDto);
             if(updatedAuthor != null){
                 return ResponseEntity.status(HttpStatus.OK).body(updatedAuthor);
